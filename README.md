@@ -1,13 +1,13 @@
 <div
     style="width: auto; text-align: center; margin: 0 auto; padding: 0"
 >
-    <h1 align="center">start-learning-opengl</h1>
+    <h1 align="center">OpenGL</h1>
     <h4 align="center">
         <span>
             <a href="https://learnopengl-cn.github.io/"
                 >learnopengl-cn</a
             >
-            学习示例 --> IDE:vscode
+            学习示例 --> IDE:Visual Studio Code
         </span>
     </h4>
     <h2 align="left">示例截图</h2>
@@ -520,34 +520,41 @@
 </div>
 
 <div>
-    <h1 align="center"> windows 下 vscode 配置 OpenGL 开发环境
+    <h1 align="center"> Windows 下 VSCode 配置 OpenGL 开发环境
     </h1>
 </div>
 
 ## 参考
 
-- windows 需安装 MinGW, install gcc、g++、gdb 和 mingw32-make 并 进入到 `MinGW\bin` 文件夹下 把 mingw32-make.exe 修改成 make.exe
-
-  > [MinGW](https://sourceforge.net/projects/mingw/) 不要下载 *MinGW-w64*因为后面可能会出现问题
-  > MinGW，即 Minimalist GNU For Windows。它是一些头文件和端口库的集合，该集合允许人们在没有第三方动态链接库的情况下使用 GCC 产生 Win32 程序。
-  >
+- windows 需安装 [`tdm64-gcc`](https://github.com/jmeubank/tdm-gcc/releases/download/v10.3.0-tdm64-2/tdm64-gcc-10.3.0-2.exe) (gcc & g++ -v == 10.3.0)，进入到 `C:\TDM-GCC-64\bin` 文件夹下备份 `mingw32-make.exe` 并修改成 `make.exe`，作为 `Makefile`指定编译器
 - vscode 插件 [`C/C++`](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)、[`C/C++ Project Generator`](https://marketplace.visualstudio.com/items?itemName=danielpinto8zz6.c-cpp-project-generator)
-- glfw 下载 [`Windows pre-compiled binaries`](https://www.glfw.org/download.html)
+- glfw库
 
-  > 选择**Windows pre-compiled binaries**，因为我们使用的 MinGW 所以选择 [32-bit Windows binaries](https://github.com/glfw/glfw/releases/download/3.3.4/glfw-3.3.4.bin.WIN32.zip)
+  > 对于 Windows，下载 [`Windows pre-compiled binaries`](https://www.glfw.org/download.html)，因为我们使用的 TDM-GCC-64 所以选择 [`64-bit Windows binaries`](https://github.com/glfw/glfw/releases/download/3.3.9/glfw-3.3.9.bin.WIN64.zip)，注意需要将.dll文件移动至output文件夹，.a文件移动至lib文件夹，include中文件复制至项目下的include文件夹
+  >
   > 对于 Ubuntu，通过 `sudo apt install libglfw3-dev libglfw3` 安装 glfw
   >
-- glad [在线服务](https://glad.dav1d.de/) 生成静态库
+  
+- glad
+
+  > [`在线服务`](https://glad.dav1d.de/) 生成静态库
+  >
 
   ```
   > gcc ./src/glad.c -c -I ./include/ // 生成 .o文件
   > ar -rc libglad.a glad.o           // 生成我们所需要的 .a文件
   ```
 
-  > 将生成的 libglad.a 复制到 lib 文件下
+  > 将生成的 libglad.a 复制到 lib 文件下，include中文件复制至项目下的include文件夹
   >
-- glm 复制到 include 目录下
-- imgui 复制到 include 目下,Makefile 中添加以下命令
+- glm库
+
+  > 下载头文件复制到 include 目录下
+  >
+- imgui
+
+  > 复制到 include 目下,Makefile 中添加以下命令
+  >
 
   ```mk
   # define the C source files
@@ -555,10 +562,13 @@
   SOURCES	+= include/imgui/imgui_impl_glfw.cpp include/imgui/imgui_impl_opengl3.cpp
   SOURCES	+= include/imgui/imgui.cpp include/imgui/imgui_demo.cpp include/imgui/imgui_draw.cpp include/imgui/imgui_widgets.cpp
   ```
-- assimp 下载已编译好的文件 [Assimp3-1-1_MinGW4-8-1_Win32.zip](https://www.mediafire.com/file/jjiv41rv8euy3dt/Assimp3-1-1_MinGW4-8-1_Win32.zip/file)
+- assimp 库
 
+  > 对于 Windows，需参考[相关编译流程](https://zhuanlan.zhihu.com/p/467620741)自行编译，仓库中所存为[`Assimp-v5.3.1.zip`](https://github.com/assimp/assimp/archive/refs/tags/v5.3.1.zip)于Windows环境下经过[`Cmake-GUI-v3.26.3`](https://cmake.org/files/v3.26/cmake-3.26.3-windows-x86_64.msi)编译得到
+  >
   > 对于 Ubuntu，通过 `sudo apt install libassimp-dev` 安装 assimp
   >
+
 - [参考 Makefile 文件](https://github.com/yocover/start-learning-opengl/blob/main/Makefile)
 - [参考配置视频](https://www.bilibili.com/video/BV1BX4y1g7R6/?spm_id_from=333.337.search-card.all.click&vd_source=ba34446636c9dae4b98f1dfd7df3f121)
 
