@@ -52,6 +52,10 @@
         "typeinfo": "cpp"
     },
     "cmake.configureOnOpen": false,
+    // "code-runner.cwd": "${relativeFileDirname}",
+    "code-runner.executorMap": {
+        "cpp": "cd $workspaceRoot && make run dir=$dirWithoutTrailingSlash",
+    },
     "clangd.fallbackFlags": [
         "-std=c++17",
         "-I${workspaceFolder}",
