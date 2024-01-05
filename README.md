@@ -526,37 +526,41 @@
 
 ## 参考
 
--   windows 需安装 MinGW, install gcc、g++、gdb 和 mingw32-make 并 进入到 `MinGW\bin` 文件夹下 把 mingw32-make.exe 修改成 make.exe
+- windows 需安装 MinGW, install gcc、g++、gdb 和 mingw32-make 并 进入到 `MinGW\bin` 文件夹下 把 mingw32-make.exe 修改成 make.exe
 
-    > [MinGW](https://sourceforge.net/projects/mingw/) 不要下载 *MinGW-w64*因为后面可能会出现问题
-    > MinGW，即 Minimalist GNU For Windows。它是一些头文件和端口库的集合，该集合允许人们在没有第三方动态链接库的情况下使用 GCC 产生 Win32 程序。
+  > [MinGW](https://sourceforge.net/projects/mingw/) 不要下载 *MinGW-w64*因为后面可能会出现问题
+  > MinGW，即 Minimalist GNU For Windows。它是一些头文件和端口库的集合，该集合允许人们在没有第三方动态链接库的情况下使用 GCC 产生 Win32 程序。
+  >
+- vscode 插件 [`C/C++`](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)、[`C/C++ Project Generator`](https://marketplace.visualstudio.com/items?itemName=danielpinto8zz6.c-cpp-project-generator)
+- glfw 下载 [`Windows pre-compiled binaries`](https://www.glfw.org/download.html)
 
--   vscode 插件 [`C/C++`](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)、[`C/C++ Project Generator`](https://marketplace.visualstudio.com/items?itemName=danielpinto8zz6.c-cpp-project-generator)
+  > 选择**Windows pre-compiled binaries**，因为我们使用的 MinGW 所以选择 [32-bit Windows binaries](https://github.com/glfw/glfw/releases/download/3.3.4/glfw-3.3.4.bin.WIN32.zip)
+  > 对于 Ubuntu，通过 `sudo apt install libglfw3-dev libglfw3` 安装 glfw
+  >
+- glad [在线服务](https://glad.dav1d.de/) 生成静态库
 
--   glfw 下载 [`Windows pre-compiled binaries`](https://www.glfw.org/download.html)
+  ```
+  > gcc ./src/glad.c -c -I ./include/ // 生成 .o文件
+  > ar -rc libglad.a glad.o           // 生成我们所需要的 .a文件
+  ```
 
-    > 选择**Windows pre-compiled binaries**，因为我们使用的 MinGW 所以选择 [32-bit Windows binaries](https://github.com/glfw/glfw/releases/download/3.3.4/glfw-3.3.4.bin.WIN32.zip)
-    > 对于 Ubuntu，通过 `sudo apt install libglfw3-dev libglfw3` 安装 glfw
+  > 将生成的 libglad.a 复制到 lib 文件下
+  >
+- glm 复制到 include 目录下
+- imgui 复制到 include 目下,Makefile 中添加以下命令
 
--   glad [在线服务](https://glad.dav1d.de/) 生成静态库
-    ```
-    > gcc ./src/glad.c -c -I ./include/ // 生成 .o文件
-    > ar -rc libglad.a glad.o           // 生成我们所需要的 .a文件
-    ```
-    > 将生成的 libglad.a 复制到 lib 文件下
--   glm 复制到 include 目录下
+  ```mk
+  # define the C source files
+  SOURCES		:= $(wildcard $(patsubst %,%/*.cpp, $(SOURCEDIRS)))
+  SOURCES	+= include/imgui/imgui_impl_glfw.cpp include/imgui/imgui_impl_opengl3.cpp
+  SOURCES	+= include/imgui/imgui.cpp include/imgui/imgui_demo.cpp include/imgui/imgui_draw.cpp include/imgui/imgui_widgets.cpp
+  ```
+- assimp 下载已编译好的文件 [Assimp3-1-1_MinGW4-8-1_Win32.zip](https://www.mediafire.com/file/jjiv41rv8euy3dt/Assimp3-1-1_MinGW4-8-1_Win32.zip/file)
 
--   imgui 复制到 include 目下,Makefile 中添加以下命令
-    ```mk
-    # define the C source files
-    SOURCES		:= $(wildcard $(patsubst %,%/*.cpp, $(SOURCEDIRS)))
-    SOURCES	+= include/imgui/imgui_impl_glfw.cpp include/imgui/imgui_impl_opengl3.cpp
-    SOURCES	+= include/imgui/imgui.cpp include/imgui/imgui_demo.cpp include/imgui/imgui_draw.cpp include/imgui/imgui_widgets.cpp
-    ```
--   assimp 下载已编译好的文件 [Assimp3-1-1_MinGW4-8-1_Win32.zip](https://www.mediafire.com/file/jjiv41rv8euy3dt/Assimp3-1-1_MinGW4-8-1_Win32.zip/file)
-    > 对于 Ubuntu，通过 `sudo apt install libassimp-dev` 安装 assimp
-
--   [参考 Makefile 文件](https://github.com/yocover/start-learning-opengl/blob/main/Makefile)
+  > 对于 Ubuntu，通过 `sudo apt install libassimp-dev` 安装 assimp
+  >
+- [参考 Makefile 文件](https://github.com/yocover/start-learning-opengl/blob/main/Makefile)
+- [参考配置视频](https://www.bilibili.com/video/BV1BX4y1g7R6/?spm_id_from=333.337.search-card.all.click&vd_source=ba34446636c9dae4b98f1dfd7df3f121)
 
 ## 示例
 
